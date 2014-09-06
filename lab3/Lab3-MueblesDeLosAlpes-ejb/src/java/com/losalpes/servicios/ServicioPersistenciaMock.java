@@ -20,6 +20,7 @@ import com.losalpes.entities.TipoUsuario;
 import com.losalpes.entities.Usuario;
 import com.losalpes.entities.Vendedor;
 import com.losalpes.excepciones.OperacionInvalidaException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -106,14 +107,22 @@ public class ServicioPersistenciaMock implements IServicioPersistenciaMockRemote
             usuarios.add(new Usuario("client", "clientclient", TipoUsuario.Cliente));
 
             registrosVentas = new ArrayList<RegistroVenta>();
+            
+            long beginTime = Timestamp.valueOf("2014-01-01 00:00:00").getTime();
+            long endTime = Timestamp.valueOf("2014-12-31 23:59:00").getTime();
+            
             Random r = new Random();
-            for (int e = 0; e < 8; e++) {
+            for (int e = 0; e < 200; e++) {
+                int muebleNum= r.nextInt(7)+1;
                 RegistroVenta venta = new RegistroVenta();
                 venta.setCantidad(e);
-                venta.setProducto(muebles.get(e));
-                venta.setFechaVenta(new Date(r.nextInt()));
+                venta.setProducto(muebles.get(muebleNum));
+                Date randomDate = new Date(this.getRandomTimeBetweenTwoDates(beginTime,endTime));
+                venta.setFechaVenta(randomDate);
                 venta.setCiudad("Bogotá");
+                registrosVentas.add(venta);
             }
+            
         
     }
 
@@ -304,7 +313,7 @@ public class ServicioPersistenciaMock implements IServicioPersistenciaMockRemote
         } 
         else if (c.equals(RegistroVenta.class))
         {
-            return registrosVentas;
+           return registrosVentas;
         } 
         else
         {
@@ -355,5 +364,11 @@ public class ServicioPersistenciaMock implements IServicioPersistenciaMockRemote
             }
         }
         return null;
+    }
+    
+    @Override
+    public long getRandomTimeBetweenTwoDates (long endTime, long beginTime) {
+        long diff = endTime - beginTime + 1;
+        return beginTime + (long) (Math.random() * diff);
     }
 }

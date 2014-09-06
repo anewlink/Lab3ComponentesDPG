@@ -9,6 +9,9 @@ package com.losalpes.beans;
 import com.losalpes.entities.Venta;
 import javax.ejb.EJB;
 import com.losalpes.servicios.IServicioReporteVentasLocal;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,11 +25,18 @@ public class ReporteRegistroVentas {
 
     @EJB
      private IServicioReporteVentasLocal servicio;
+    
+    
+    
     /**
      * Creates a new instance of ReporteRegistroVentas
      */
     public ReporteRegistroVentas() {
-
+     Calendar cal = Calendar.getInstance();
+     cal.setTime(new Date());
+     int month = cal.get(Calendar.MONTH)+1;  
+     this.setMes(month);
+     this.listaRegistroVentas = new ArrayList<Venta>();
     }
     
     public String obtenerReporteVentas(){
@@ -38,7 +48,7 @@ public class ReporteRegistroVentas {
      * @return the listaRegistroVentas
      */
     public List<Venta> getListaRegistroVentas() {
-        return listaRegistroVentas;
+        return servicio.getReporteVentasxMes(this.getMes());
     }
 
     public int getMes() {

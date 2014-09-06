@@ -67,6 +67,7 @@ public class Venta {
     public void setNumDia(int numDia) {
         this.numDia = numDia;
     }
+
     
     
     

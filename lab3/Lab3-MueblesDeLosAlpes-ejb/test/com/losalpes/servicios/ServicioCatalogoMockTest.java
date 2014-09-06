@@ -1,6 +1,7 @@
 package com.losalpes.servicios;
 
 import com.losalpes.entities.Mueble;
+import com.losalpes.entities.TipoMueble;
 import javax.naming.InitialContext;
 import java.util.Properties;
 import org.junit.Before;
@@ -40,7 +41,7 @@ public class ServicioCatalogoMockTest
             env.put("org.omg.CORBA.ORBInitialPort", "3700");
             InitialContext contexto;
             contexto = new InitialContext(env);
-            //servicio = (IServicioVendedoresMockRemote) contexto.lookup("com.losalpes.servicios.IServicioVendedoresMockRemote");
+            servicio = (IServicioCatalogoMockRemote) contexto.lookup("com.losalpes.servicios.IServicioCatalogoMockRemote");
         } 
         catch (Exception e)
         {
@@ -58,7 +59,14 @@ public class ServicioCatalogoMockTest
     @Test
     public void testagregarMueble() throws Exception
     {
-        Mueble mueble = null;
+        Mueble mueble = null;/*new Mueble();
+        mueble.setCantidad(35);
+        mueble.setDescripcion("Este es mueble de prueba");
+        mueble.setImagen("/");
+        mueble.setPrecio(10000);
+        mueble.setReferencia(35);
+        mueble.setSeleccion(true);
+        mueble.setTipo(TipoMueble.Interior);*/
         servicio.agregarMueble(mueble);
     }
 
@@ -68,28 +76,21 @@ public class ServicioCatalogoMockTest
     @Test
     public void testEliminarMueble() throws Exception
     {
-        Mueble mueble = null;
         //id mueble
-        servicio.eliminarMueble(10);
-        //servicio.eliminarVendedor(1L);
+        servicio.eliminarMueble(35L);
     }
     
     @Test
     public void testDarMuebles() throws Exception
     {
-
-        //id mueble
         servicio.darMuebles();
-        //servicio.eliminarVendedor(1L);
     }
     
     @Test
-    public void testRemoverEjemplarMueble(long id) throws Exception
+    public void testRemoverEjemplarMueble() throws Exception
     {
-        Mueble mueble = null;
-        //id mueble
-        servicio.removerEjemplarMueble(10);
-        //servicio.eliminarVendedor(1L);
+       //id mueble
+       servicio.removerEjemplarMueble(1L);
     }
 
 }

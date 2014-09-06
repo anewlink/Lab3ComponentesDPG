@@ -17,5 +17,10 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface IServicioReporteVentasRemote {
+    /**
+     * Obtener Reporte de ventas dadas un mes
+     * @param mes
+     * @return 
+     */
     public List<Venta> getReporteVentasxMes(int mes);
 }

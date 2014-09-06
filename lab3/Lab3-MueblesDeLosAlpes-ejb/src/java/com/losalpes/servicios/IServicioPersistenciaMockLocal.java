@@ -56,4 +56,12 @@ public interface IServicioPersistenciaMockLocal
      */
     public java.lang.Object findById(java.lang.Class c, java.lang.Object id);
     
+    /**
+     * Obtener fecha aleatoria dado dos fechas
+     * @param endTime
+     * @param beginTime
+     * @return 
+     */
+    public long getRandomTimeBetweenTwoDates (long endTime, long beginTime);
+    
 }
