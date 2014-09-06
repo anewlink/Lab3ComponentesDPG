@@ -9,8 +9,6 @@ package com.losalpes.servicios;
 import com.losalpes.entities.Mueble;
 import com.losalpes.excepciones.OperacionInvalidaException;
 import java.beans.*;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +33,7 @@ public class ServicioCatalogoMock implements IServicioCatalogoMockLocal, IServic
     
     public ServicioCatalogoMock() {
         propertySupport = new PropertyChangeSupport(this);
+        
     }
     
     public String getSampleProperty() {
@@ -64,6 +63,7 @@ public class ServicioCatalogoMock implements IServicioCatalogoMockLocal, IServic
         }
     }
 
+    
     @Override
     public void eliminarMueble(long id) {
        Mueble mueble = (Mueble)persistencia.findById(Mueble.class, id);
@@ -86,6 +86,12 @@ public class ServicioCatalogoMock implements IServicioCatalogoMockLocal, IServic
         
         mueble.setCantidad(cantidad==0?0:cantidad-1);
         persistencia.update(mueble);
+    }
+
+    @Override
+    public Mueble buscar(long id) {
+        Object mueble = persistencia.findById(Mueble.class, id);
+        return mueble!=null? (Mueble)mueble:null;
     }
 
    

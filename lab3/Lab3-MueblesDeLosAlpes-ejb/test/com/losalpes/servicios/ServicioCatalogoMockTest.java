@@ -6,6 +6,7 @@ import javax.naming.InitialContext;
 import java.util.Properties;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Assert;
 
 /**
  * Clase encargada de realizar pruebas unitarias
@@ -42,6 +43,7 @@ public class ServicioCatalogoMockTest
             InitialContext contexto;
             contexto = new InitialContext(env);
             servicio = (IServicioCatalogoMockRemote) contexto.lookup("com.losalpes.servicios.IServicioCatalogoMockRemote");
+            //servicio = new ServicioCatalogoMock();
         } 
         catch (Exception e)
         {
@@ -54,20 +56,36 @@ public class ServicioCatalogoMockTest
     //-----------------------------------------------------------
     
     /**
-     * Método de prueba para agregar un vendedor al sistema
+     * Método de prueba para agregar un mueble invalido al sistema
+     */
+    @Test
+    public void testagregarMuebleNull() throws Exception
+    {
+        int currentSize = servicio.darMuebles().size();
+        Mueble mueble = null;
+        servicio.agregarMueble(mueble);
+        
+        Assert.assertEquals("Se agrego un mueble y el que se envio fue null",currentSize,servicio.darMuebles().size());
+    }
+    
+     /**
+     * Método de prueba para agregar un mueble al sistema
      */
     @Test
     public void testagregarMueble() throws Exception
     {
-        Mueble mueble = null;/*new Mueble();
+        int currentSize = servicio.darMuebles().size();
+        Mueble mueble = new Mueble();
         mueble.setCantidad(35);
         mueble.setDescripcion("Este es mueble de prueba");
         mueble.setImagen("/");
         mueble.setPrecio(10000);
-        mueble.setReferencia(35);
+        mueble.setReferencia(9L);
         mueble.setSeleccion(true);
-        mueble.setTipo(TipoMueble.Interior);*/
+        mueble.setTipo(TipoMueble.Interior);
         servicio.agregarMueble(mueble);
+        
+        Assert.assertEquals("No se agrego el mueble",currentSize+1,servicio.darMuebles().size());
     }
 
     /**
@@ -76,21 +94,33 @@ public class ServicioCatalogoMockTest
     @Test
     public void testEliminarMueble() throws Exception
     {
+        int currentSize = servicio.darMuebles().size();
         //id mueble
-        servicio.eliminarMueble(35L);
+        servicio.eliminarMueble(3L);
+        Assert.assertEquals("No se elimino el mueble",currentSize-1,servicio.darMuebles().size());
     }
     
     @Test
     public void testDarMuebles() throws Exception
     {
-        servicio.darMuebles();
+        Assert.assertNotNull("El listado de muebles no se inicializó", servicio.darMuebles());
     }
     
     @Test
     public void testRemoverEjemplarMueble() throws Exception
-    {
-       //id mueble
+    { 
+       Mueble mueble = servicio.buscar(1L);
+       int cantidad = mueble.getCantidad();
+       
        servicio.removerEjemplarMueble(1L);
+       
+       Assert.assertEquals("No se elimino el ejemplar del mueble",cantidad-1,servicio.buscar(1L).getCantidad());
+    }
+    
+    @Test
+    public void testBusarMueble() throws Exception
+    {
+        Assert.assertNotNull("No encontro el mueble",servicio.buscar(1L));
     }
 
 }

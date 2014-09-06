@@ -49,4 +49,11 @@ public interface IServicioCatalogoMockRemote
      */
     public void removerEjemplarMueble(long id);
     
+    /**
+     * Busca un mueble
+     * @param id identificador unico del mueble 
+     * @return 
+     */
+    public Mueble buscar(long id);
+    
 }

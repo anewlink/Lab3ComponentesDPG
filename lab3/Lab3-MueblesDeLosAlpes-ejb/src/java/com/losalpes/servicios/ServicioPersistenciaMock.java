@@ -1,5 +1,5 @@
 /**
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * $Id$ ServicioPersistenciaMock.java
  * Universidad de los Andes (Bogotá - Colombia)
  * Departamento de Ingeniería de Sistemas y Computación
@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import javax.ejb.Singleton;
-import javax.ejb.Stateless;
+
 
 /**
  * Implementación de los servicios de persistencia
