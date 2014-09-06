@@ -32,8 +32,7 @@ public class ServicioCatalogoMock implements IServicioCatalogoMockLocal, IServic
     private IServicioPersistenciaMockLocal persistencia;
     
     public ServicioCatalogoMock() {
-        propertySupport = new PropertyChangeSupport(this);
-        
+        propertySupport = new PropertyChangeSupport(this);    
     }
     
     public String getSampleProperty() {
@@ -66,7 +65,9 @@ public class ServicioCatalogoMock implements IServicioCatalogoMockLocal, IServic
     
     @Override
     public void eliminarMueble(long id) {
-       Mueble mueble = (Mueble)persistencia.findById(Mueble.class, id);
+        
+        Mueble mueble = (Mueble)persistencia.findById(Mueble.class, id);
+        
         try {
             persistencia.delete(mueble);
         } catch (OperacionInvalidaException ex) {
